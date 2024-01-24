@@ -34,6 +34,8 @@ module.exports = {
     node: true
   },
   rules: {
+    // Tắt rule yêu cầu import alias config path
+    'import/no-unresolved': 'off',
     // Tắt rule yêu cầu import React trong file jsx
     'react/react-in-jsx-scope': 'off',
     // Cảnh báo khi thẻ <a target='_blank'> mà không có rel="noreferrer"

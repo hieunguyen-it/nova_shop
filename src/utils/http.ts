@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { toast } from 'react-toastify'
-import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { isAxiosUnprocessableEntityError } from './ultils'
+import { HttpStatusCode } from '@/constants'
 
 class Http {
   instance: AxiosInstance

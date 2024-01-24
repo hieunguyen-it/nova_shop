@@ -1,4 +1,4 @@
-import { AuthResponse } from 'src/types/auth.type'
+import { AuthResponse } from '@/types'
 import http from 'src/utils/http'
 
 export const URL_LOGIN = 'login'

@@ -1,5 +1,5 @@
-import ReactSvg from './react.svg'
-
-export const Icons = {
-  ReactSvg
-}
+export * from './chevron-down'
+export * from './global'
+export * from './shopee'
+export * from './search'
+export * from './cart'

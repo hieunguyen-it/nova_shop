@@ -3,15 +3,13 @@ import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import authApi from 'src/api/auth.api'
-import Button from 'src/components/Button'
-import Input from 'src/components/Input'
-import { schema, Schema } from 'src/utils/rules'
-import { isAxiosUnprocessableEntityError } from 'src/utils/ultils'
-import { ErrorResponse } from 'src/types/utils.type'
+import { Button, Input } from '@/components'
+import { ErrorResponse } from '@/types'
+import { Schema, isAxiosUnprocessableEntityError, schema } from '@/utils'
 
 type FormData = Omit<Schema, 'confirm_password'>
 const loginSchema = schema.omit(['confirm_password'])
-export default function Login() {
+export const Login = () => {
   const navigate = useNavigate()
   const {
     register,

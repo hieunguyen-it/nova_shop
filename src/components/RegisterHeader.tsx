@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-export default function RegisterHeader() {
+export const RegisterHeader = () => {
   return (
     <header className='py-5'>
       <div className='container'>

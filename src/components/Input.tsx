@@ -11,7 +11,7 @@ interface InputProps {
   autoComplete?: string
   register: UseFormRegister<any>
 }
-export default function Input({
+export const Input = ({
   type,
   errorMessage,
   placeHolder,
@@ -20,7 +20,7 @@ export default function Input({
   rules,
   autoComplete,
   register
-}: InputProps) {
+}: InputProps) => {
   return (
     <div className={className}>
       <input

@@ -3,14 +3,13 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 
-import Input from 'src/components/Input'
-import { schema, Schema } from 'src/utils/rules'
+import { Input } from '@/components'
 import authApi from 'src/api/auth.api'
 import { omit } from 'lodash'
-import { isAxiosUnprocessableEntityError } from 'src/utils/ultils'
-import { ResponseApi } from 'src/types/utils.type'
+import { ResponseApi } from '@/types'
+import { Schema, isAxiosUnprocessableEntityError, schema } from '@/utils'
 
-export default function Register() {
+export const Register = () => {
   type FormData = Schema
   const {
     register,
