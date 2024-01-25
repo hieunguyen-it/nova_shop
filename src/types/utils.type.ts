@@ -1,6 +1,6 @@
 export interface ResponseApi<Data> {
   message: string
-  data?: Data
+  data: Data
 }
 
 export interface ErrorResponse<Data> {

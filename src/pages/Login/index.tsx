@@ -6,10 +6,14 @@ import authApi from 'src/api/auth.api'
 import { Button, Input } from '@/components'
 import { ErrorResponse } from '@/types'
 import { Schema, isAxiosUnprocessableEntityError, schema } from '@/utils'
+import { useContext } from 'react'
+import { AppContext } from '@/contexts/app.context'
+import { path } from '@/constants'
 
 type FormData = Omit<Schema, 'confirm_password'>
 const loginSchema = schema.omit(['confirm_password'])
 export const Login = () => {
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
     register,
@@ -25,10 +29,9 @@ export const Login = () => {
   const onSubmit = handleSubmit((data) => {
     loginMutation.mutate(data, {
       onSuccess: (data) => {
-        console.log('data', data)
-        // setIsAuthenticated(true)
-        // setProfile(data.data.data.user)
-        navigate('/')
+        setIsAuthenticated(true)
+        setProfile(data.data.data.user)
+        navigate(path.home)
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponse<FormData>>(error)) {
@@ -77,9 +80,9 @@ export const Login = () => {
               <div className='mt-3'>
                 <Button
                   type='submit'
-                  className='flex  w-full items-center justify-center bg-red-500 py-4 px-2 text-sm uppercase text-white hover:bg-red-600'
-                  // isLoading={loginMutation.isLoading}
-                  // disabled={loginMutation.isLoading}
+                  className='flex w-full items-center justify-center bg-red-500 py-4 px-2 text-sm uppercase text-white hover:bg-red-600'
+                  isLoading={loginMutation.isPending}
+                  disabled={loginMutation.isPending}
                 >
                   Đăng nhập
                 </Button>
