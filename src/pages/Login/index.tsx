@@ -66,7 +66,7 @@ export const Login = () => {
                 type='email'
                 className='mt-8'
                 errorMessage={errors.email?.message}
-                placeHolder='Email'
+                placeholder='Email'
               />
               <Input
                 name='password'
@@ -74,7 +74,7 @@ export const Login = () => {
                 type='password'
                 className='mt-2'
                 errorMessage={errors.password?.message}
-                placeHolder='Password'
+                placeholder='Password'
                 autoComplete='on'
               />
               <div className='mt-3'>

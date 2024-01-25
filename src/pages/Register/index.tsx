@@ -63,7 +63,7 @@ export const Register = () => {
                 className='mt-8'
                 type='email'
                 errorMessage={errors.email?.message}
-                placeHolder='Email'
+                placeholder='Email'
                 register={register}
               />
               <Input
@@ -71,7 +71,7 @@ export const Register = () => {
                 className='mt-2'
                 type='password'
                 errorMessage={errors.password?.message}
-                placeHolder='Password'
+                placeholder='Password'
                 register={register}
                 autoComplete='on'
               />
@@ -80,7 +80,7 @@ export const Register = () => {
                 className='mt-2'
                 type='password'
                 errorMessage={errors.confirm_password?.message}
-                placeHolder='Confirm Password'
+                placeholder='Confirm Password'
                 register={register}
                 autoComplete='on'
               />
