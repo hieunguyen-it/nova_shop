@@ -17,7 +17,7 @@ export const SortProductList = () => {
           </button>
           <select
             className='h-8 rounded-sm capitalize border-r-8 border-transparent text-black text-left px-4 text-sm outline-none'
-            value=''
+            defaultValue=''
           >
             <option value='' disabled>
               Giá

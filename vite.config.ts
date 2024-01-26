@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [checker({ typescript: true }), dynamicImport(), react(), svgr(), tsconfigPaths()],
     server: {
-      port: 3000
+      port: 3005
     },
     define: {
       'process.env': env
@@ -28,7 +28,8 @@ export default defineConfig(({ mode }) => {
         '@layouts': `${path.resolve(__dirname, './src/layouts/')}`,
         '@types': `${path.resolve(__dirname, './src/types/')}`,
         '@utils': `${path.resolve(__dirname, './src/utils/')}`,
-        '@pages': `${path.resolve(__dirname, './src/pages/')}`
+        '@pages': `${path.resolve(__dirname, './src/pages/')}`,
+        '@hooks': `${path.resolve(__dirname, './src/hooks/')}`
       }
     }
   }

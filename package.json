@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3000",
+    "dev": "vite",
     "format:check": "prettier . --check",
     "format:fix": "prettier . --write",
     "format:svg": "svgo . -r --config svgo.config.cjs",
@@ -20,6 +20,7 @@
   "dependencies": {
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@hookform/resolvers": "^3.3.4",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@tanstack/react-query": "^5.17.19",
     "@tanstack/react-query-devtools": "^5.17.21",
     "axios": "^1.6.5",
