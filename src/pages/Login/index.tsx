@@ -10,8 +10,8 @@ import { useContext } from 'react'
 import { AppContext } from '@/contexts/app.context'
 import { path } from '@/constants'
 
-type FormData = Omit<Schema, 'confirm_password'>
-const loginSchema = schema.omit(['confirm_password'])
+type FormData = Pick<Schema, 'email' | 'password'>
+const loginSchema = schema.pick(['email', 'password'])
 export const Login = () => {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ export const Login = () => {
     resolver: yupResolver(loginSchema)
   })
   const loginMutation = useMutation({
-    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.login(body)
+    mutationFn: (body: Pick<FormData, 'email' | 'password'>) => authApi.login(body)
   })
   const onSubmit = handleSubmit((data) => {
     loginMutation.mutate(data, {

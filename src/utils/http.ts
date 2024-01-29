@@ -51,7 +51,6 @@ class Http {
         return response
       },
       function (error: AxiosError) {
-        console.log('error', error)
         if (!isAxiosUnprocessableEntityError(error)) {
           console.log('error', error)
         }
