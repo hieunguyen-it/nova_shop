@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import { MainLayout } from '@/components'
 import { RegisterLayout } from '@/layouts'
-import { Login, ProductList, Profile, Register } from '@/pages'
+import { Login, ProductDetail, ProductList, Profile, Register } from '@/pages'
 import { useContext } from 'react'
 import { AppContext } from './contexts/app.context'
 import { path } from '@/constants'
@@ -54,7 +54,14 @@ export default function useRouteElements() {
         }
       ]
     },
-
+    {
+      path: path.productDetail,
+      element: (
+        <MainLayout>
+          <ProductDetail />
+        </MainLayout>
+      )
+    },
     {
       path: '',
       index: true,

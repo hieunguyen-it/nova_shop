@@ -1,4 +1,4 @@
-export const ChevronLeft = () => {
+export const ChevronLeft = ({ className = 'w-3 h-3' }: { className?: string }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -6,7 +6,7 @@ export const ChevronLeft = () => {
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className='w-3 h-3'
+      className={className}
     >
       <path strokeLinecap='round' strokeLinejoin='round' d='M15.75 19.5 8.25 12l7.5-7.5' />
     </svg>
