@@ -1,5 +1,5 @@
 import { path } from '@/constants'
-import { QueryConfig } from '@/pages'
+import { QueryConfig } from '@/hooks'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 
 /**

@@ -1,26 +1,47 @@
 import productApi from '@/api/product.api'
-import { AddCart, ChevronLeft, ChevronRight, Minus, Plus } from '@/assets'
-// Chống việc tấn công xss dùng DOMPurify - loại bỏ mã javascript khi hiển thị mã HTML
+import { AddCart, ChevronLeft, ChevronRight } from '@/assets'
+// Chống việc tấn công XSS dùng DOMPurify - loại bỏ mã javascript khi hiển thị mã HTML
 import DOMPurify from 'dompurify'
-import { ProductRating } from '@/components'
-import InputNumber from '@/components/InputNumber'
+import { ProductRating, QuantityController } from '@/components'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from '@/utils'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
-import { useEffect, useMemo, useState } from 'react'
-import { Product as ProductType } from '@/types'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { ProductListConfig, Product as ProductType } from '@/types'
+import { Helmet } from 'react-helmet-async'
+import { convert } from 'html-to-text'
+import { Product } from '../ProductList/components/Product'
 
 export const ProductDetail = () => {
   const { nameId } = useParams()
+  const [buyCount, setBuyCount] = useState(1)
   const id = getIdFromNameId(nameId as string)
+
+  // Get Product Detail
   const { data: productDetailData } = useQuery({
     queryKey: ['product', id],
     queryFn: () => productApi.getProductDetail(id)
   })
-  const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
-  const [activeImage, setActiveImage] = useState('')
+
   const product = productDetailData?.data.data
 
+  // Get List Product by Category
+
+  const queryConfig: ProductListConfig = { limit: '20', page: '1', category: product?.category._id }
+
+  const { data: productsData } = useQuery({
+    queryKey: ['products', queryConfig],
+    queryFn: () => {
+      return productApi.getProducts(queryConfig)
+    },
+    staleTime: 3 * 60 * 1000,
+    // Khi product có data thì query mới được gọi
+    enabled: Boolean(product)
+  })
+  const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
+  const [activeImage, setActiveImage] = useState('')
+
+  const imageRef = useRef<HTMLImageElement>(null)
   const currentImages = useMemo(
     () => (product ? product.images.slice(...currentIndexImages) : []),
     [currentIndexImages, product]
@@ -31,6 +52,30 @@ export const ProductDetail = () => {
       setActiveImage(product.images[0])
     }
   }, [product])
+
+  const handleZoom = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    const image = imageRef.current as HTMLImageElement
+    const { naturalHeight, naturalWidth } = image
+    // Cách 1: Lấy offsetX, offsetY đơn giản khi chúng ta đã xử lý được bubble event
+    // const { offsetX, offsetY } = event.nativeEvent
+
+    // Cách 2: Lấy offsetX, offsetY khi chúng ta không xử lý được bubble event
+    const offsetX = event.pageX - (rect.x + window.scrollX)
+    const offsetY = event.pageY - (rect.y + window.scrollY)
+
+    const top = offsetY * (1 - naturalHeight / rect.height)
+    const left = offsetX * (1 - naturalWidth / rect.width)
+    image.style.width = naturalWidth + 'px'
+    image.style.height = naturalHeight + 'px'
+    image.style.maxWidth = 'unset'
+    image.style.top = top + 'px'
+    image.style.left = left + 'px'
+  }
+
+  const handleRemoveZoom = () => {
+    imageRef.current?.removeAttribute('style')
+  }
 
   const next = () => {
     if (currentIndexImages[1] < (product as ProductType).images.length) {
@@ -48,18 +93,38 @@ export const ProductDetail = () => {
     setActiveImage(img)
   }
 
+  const handleBuyCount = (value: number) => {
+    setBuyCount(value)
+  }
+
   if (!product) return null
   return (
     <div className='bg-gray-200 py-6'>
+      <Helmet>
+        <title>{product.name} | Shopee Clone</title>
+        <meta
+          name='description'
+          content={convert(product.description, {
+            limits: {
+              maxInputLength: 150
+            }
+          })}
+        />
+      </Helmet>
       <div className='container'>
         <div className='bg-white p-4 shadow'>
           <div className='grid grid-cols-12 gap-9'>
             <div className='col-span-5'>
-              <div className='relative w-full pt-[100%] shadow'>
+              <div
+                className='relative w-full cursor-zoom-in overflow-hidden pt-[100%] shadow'
+                onMouseMove={handleZoom}
+                onMouseLeave={handleRemoveZoom}
+              >
                 <img
                   src={activeImage}
                   alt={product.name}
                   className='absolute top-0 left-0 bg-white w-full h-full object-cover'
+                  ref={imageRef}
                 />
               </div>
               <div className='relative mt-4 grid grid-cols-5 gap-1'>
@@ -116,19 +181,16 @@ export const ProductDetail = () => {
               </div>
               <div className='mt-8 flex items-center'>
                 <div className='capitalize text-gray-500'>Số lượng</div>
-                <div className='ml-10 flex items-center'>
-                  <button className='flex h-8 w-8 items-center justify-center rounded-l-sm border border-gray-300 text-gray-600'>
-                    <Minus />
-                  </button>
-                  <InputNumber
-                    className=''
-                    value={1}
-                    classNameError='hidden'
-                    classNameInput='h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none'
-                  />
-                  <button className='flex h-8 w-8 items-center justify-center rounded-l-sm border border-gray-300 text-gray-600'>
-                    <Plus />
-                  </button>
+                <QuantityController
+                  onDecrease={handleBuyCount}
+                  onIncrease={handleBuyCount}
+                  onType={handleBuyCount}
+                  value={buyCount}
+                  max={product.quantity}
+                />
+                <div className='ml-6 text-sm text-gray-500'>
+                  {/* {product.quantity} {t('product:available')} */}
+                  {product.quantity}
                 </div>
                 <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
               </div>
@@ -165,6 +227,21 @@ export const ProductDetail = () => {
               />
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className='mt-8'>
+        <div className='container'>
+          <div className='uppercase text-gray-400'>CÓ THỂ BẠN CŨNG THÍCH</div>
+          {productsData && (
+            <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
+              {productsData.data.data.products.map((product) => (
+                <div className='col-span-1' key={product._id}>
+                  <Product product={product} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

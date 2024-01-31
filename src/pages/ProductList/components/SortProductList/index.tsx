@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from '@/assets'
 import { order as orderConstants, path, sortBy } from '@/constants'
-import { QueryConfig } from '@/pages'
+import { QueryConfig } from '@/hooks'
 import { ProductListConfig } from '@/types'
 import classNames from 'classnames'
 import { omit } from 'lodash'

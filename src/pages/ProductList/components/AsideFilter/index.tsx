@@ -2,7 +2,6 @@ import { ArrowRightFilled, Category as CategoryIcon, Fillter } from '@/assets'
 import { Button } from '@/components'
 import InputNumber from '@/components/InputNumber'
 import { path } from '@/constants'
-import { QueryConfig } from '@/pages'
 import { Category } from '@/types'
 import { Schema, schema } from '@/utils'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -11,6 +10,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import { RatingStars } from '../RatingStars'
 import { omit } from 'lodash'
+import { QueryConfig } from '@/hooks'
 
 interface AsideFilterProps {
   queryConfig: QueryConfig

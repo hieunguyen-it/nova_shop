@@ -1,13 +1,17 @@
 import { Cart, ChevronDown, Global, Search, Shopee } from '@/assets'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Popover } from '@/components'
 import { useMutation } from '@tanstack/react-query'
 import authApi from 'src/api/auth.api'
 import { useContext } from 'react'
 import { AppContext } from '@/contexts/app.context'
 import { path } from '@/constants'
+import { useSearchProducts } from '@/hooks'
 
 export const Header = () => {
+  const { onSubmitSearch, register } = useSearchProducts()
+  const navigate = useNavigate()
+
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
 
   const logoutMutation = useMutation({
@@ -20,7 +24,9 @@ export const Header = () => {
 
   const handlleLogout = () => {
     logoutMutation.mutate()
+    navigate(path.home)
   }
+
   return (
     <div className='bg-[linear-gradient(-180deg,#f53d2d,#f63)] pb-5 pt-2 text-white'>
       <div className='container'>
@@ -95,13 +101,13 @@ export const Header = () => {
           <Link to={path.home} className='col-span-2'>
             <Shopee />
           </Link>
-          <form className='col-span-9'>
+          <form className='col-span-9' onSubmit={onSubmitSearch}>
             <div className='flex rounded-sm bg-white p-1'>
               <input
                 type='text'
-                name='search'
                 className='flex-grow border-none bg-transparent px-3 py-2 text-black outline-none'
                 placeholder='Free ship đơn từ 0Đ'
+                {...register('name')}
               />
               <button className='flex-shrink-0 rounded-sm bg-orange py-2 px-6 hover:opacity-90'>
                 <Search />

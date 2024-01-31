@@ -1,15 +1,16 @@
 import useRouteElements from './useRouteElements'
 import { ToastContainer } from 'react-toastify'
+import { HelmetProvider } from 'react-helmet-async'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const routeElements = useRouteElements()
 
   return (
-    <div>
+    <HelmetProvider>
       {routeElements}
       <ToastContainer />
-    </div>
+    </HelmetProvider>
   )
 }
 
