@@ -4,16 +4,21 @@ import { AddCart, ChevronLeft, ChevronRight } from '@/assets'
 import DOMPurify from 'dompurify'
 import { ProductRating, QuantityController } from '@/components'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from '@/utils'
-import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ProductListConfig, Product as ProductType } from '@/types'
 import { Helmet } from 'react-helmet-async'
 import { convert } from 'html-to-text'
 import { Product } from '../ProductList/components/Product'
+import { path, purchasesStatus } from '@/constants'
+import purchaseApi from '@/api/purchase.api'
+import { toast } from 'react-toastify'
 
 export const ProductDetail = () => {
+  const navigate = useNavigate()
   const { nameId } = useParams()
+  const queryClient = useQueryClient()
   const [buyCount, setBuyCount] = useState(1)
   const id = getIdFromNameId(nameId as string)
 
@@ -24,6 +29,8 @@ export const ProductDetail = () => {
   })
 
   const product = productDetailData?.data.data
+
+  const addToCartMutation = useMutation(purchaseApi.addToCart)
 
   // Get List Product by Category
 
@@ -95,6 +102,29 @@ export const ProductDetail = () => {
 
   const handleBuyCount = (value: number) => {
     setBuyCount(value)
+  }
+
+  const addToCart = () => {
+    addToCartMutation.mutate(
+      { buy_count: buyCount, product_id: product?._id as string },
+      {
+        onSuccess: (data) => {
+          toast.success(data.data.message, { autoClose: 1000 })
+          queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
+        }
+      }
+    )
+  }
+
+  const buyNow = async () => {
+    console.log('123')
+    const res = await addToCartMutation.mutateAsync({ buy_count: buyCount, product_id: product?._id as string })
+    const purchase = res.data.data
+    navigate(path.cart, {
+      state: {
+        purchaseId: purchase._id
+      }
+    })
   }
 
   if (!product) return null
@@ -196,16 +226,14 @@ export const ProductDetail = () => {
               </div>
               <div className='mt-8 flex items-center'>
                 <button
-                  onClick={() => {
-                    console.log('add to cart')
-                  }}
+                  onClick={addToCart}
                   className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
                 >
                   <AddCart />
                   Thêm vào giỏ hàng
                 </button>
                 <button
-                  onClick={() => {}}
+                  onClick={buyNow}
                   className='fkex ml-4 h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
                 >
                   Mua ngay

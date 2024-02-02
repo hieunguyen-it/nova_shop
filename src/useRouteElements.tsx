@@ -1,7 +1,17 @@
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import { MainLayout } from '@/components'
-import { RegisterLayout } from '@/layouts'
-import { Login, ProductDetail, ProductList, Profile, Register } from '@/pages'
+import { CartLayout, RegisterLayout } from '@/layouts'
+import {
+  Cart,
+  ChangePassword,
+  HistoryPurchase,
+  Login,
+  ProductDetail,
+  ProductList,
+  Profile,
+  Register,
+  UserLayout
+} from '@/pages'
 import { useContext } from 'react'
 import { AppContext } from './contexts/app.context'
 import { path } from '@/constants'
@@ -45,12 +55,34 @@ export default function useRouteElements() {
       element: <ProtectedRoute />,
       children: [
         {
-          path: path.profile,
+          path: path.cart,
+          element: (
+            <CartLayout>
+              <Cart />
+            </CartLayout>
+          )
+        },
+        {
+          path: path.user,
           element: (
             <MainLayout>
-              <Profile />
+              <UserLayout />
             </MainLayout>
-          )
+          ),
+          children: [
+            {
+              path: path.profile,
+              element: <Profile />
+            },
+            {
+              path: path.changePassword,
+              element: <ChangePassword />
+            },
+            {
+              path: path.historyPurchase,
+              element: <HistoryPurchase />
+            }
+          ]
         }
       ]
     },

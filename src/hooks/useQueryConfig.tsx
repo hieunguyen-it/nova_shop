@@ -9,8 +9,6 @@ export type QueryConfig = {
 export const useQueryConfig = () => {
   const queryParams: QueryConfig = useQueryParams()
 
-  console.log('queryParams', queryParams)
-
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || '1',

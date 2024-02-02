@@ -1,6 +1,6 @@
-import { HttpStatusCode } from '@/constants'
+import { HttpStatusCode, config } from '@/constants'
 import axios, { AxiosError } from 'axios'
-// import userImage from 'src/assets/images/user.svg'
+import userImage from 'src/assets/icons/user.svg'
 import { ErrorResponse } from 'src/types/utils.type'
 
 export function isAxiosError<T>(error: unknown): error is AxiosError<T> {
@@ -52,4 +52,4 @@ export const getIdFromNameId = (nameId: string) => {
   return arr[arr.length - 1]
 }
 
-// export const getAvatarUrl = (avatarName?: string) => (avatarName ? `${config.baseUrl}images/${avatarName}` : userImage)
+export const getAvatarUrl = (avatarName?: string) => (avatarName ? `${config.baseUrl}images/${avatarName}` : userImage)

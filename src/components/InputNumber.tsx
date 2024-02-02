@@ -6,7 +6,7 @@ export interface InputNumberProps extends InputHTMLAttributes<HTMLInputElement> 
   classNameError?: string
 }
 
-const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(function InputNumberInner(
+export const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>(function InputNumberInner(
   {
     errorMessage,
     className,

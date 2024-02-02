@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { AsideFilter } from './components/AsideFilter'
 import { Product } from './components/Product'
 import { SortProductList } from './components/SortProductList'
@@ -16,7 +16,7 @@ export const ProductList = () => {
     queryFn: () => {
       return productApi.getProducts(queryConfig as ProductListConfig)
     },
-    placeholderData: keepPreviousData,
+    keepPreviousData: true,
     staleTime: 3 * 60 * 1000
   })
 

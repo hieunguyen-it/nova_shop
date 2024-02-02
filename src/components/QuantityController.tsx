@@ -1,6 +1,7 @@
+/* eslint-disable import/no-named-as-default */
 import { useState } from 'react'
-import InputNumber, { InputNumberProps } from './InputNumber'
 import { Minus, Plus } from '@/assets'
+import InputNumber, { InputNumberProps } from './InputNumber'
 
 interface Props extends InputNumberProps {
   max?: number
