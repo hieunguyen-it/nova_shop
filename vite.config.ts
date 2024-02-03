@@ -11,6 +11,13 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     plugins: [checker({ typescript: true }), dynamicImport(), react(), svgr(), tsconfigPaths(), visualizer()],
+    test: {
+      environment: 'jsdom',
+      coverage: {
+        provider: 'v8',
+        reporter: ['text', 'json', 'html']
+      }
+    },
     server: {
       port: 3005
     },

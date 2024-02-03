@@ -7,6 +7,7 @@ import productApi from '@/api/product.api'
 import { Pagination } from '@/components'
 import { ProductListConfig } from '@/types'
 import categoryApi from '@/api/category.api'
+import { Helmet } from 'react-helmet-async'
 
 const ProductList = () => {
   const queryConfig = useQueryConfig()
@@ -28,6 +29,10 @@ const ProductList = () => {
   })
   return (
     <div className='bg-gray-200 py-6'>
+      <Helmet>
+        <title>Trang chủ | Shopee Clone</title>
+        <meta name='description' content='Trang chủ dự án Shopee Clone' />
+      </Helmet>
       <div className='container'>
         {productsData && (
           <div className='grid grid-cols-12 gap-6'>
