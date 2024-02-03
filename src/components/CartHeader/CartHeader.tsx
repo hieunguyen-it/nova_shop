@@ -1,6 +1,6 @@
 import { useSearchProducts } from '@/hooks'
 import { Link } from 'react-router-dom'
-import NavHeader from './NavHeader'
+import NavHeader from '../NavHeader'
 import { path } from '@/constants'
 
 export const CartHeader = () => {

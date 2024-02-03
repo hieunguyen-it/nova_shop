@@ -1,7 +1,6 @@
 import { lazy, useContext, Suspense } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
-import { MainLayout } from '@/components'
-import { CartLayout, RegisterLayout } from '@/layouts'
+import { CartLayout, MainLayout, RegisterLayout } from '@/layouts'
 import { UserLayout } from '@/pages'
 import { AppContext } from './contexts/app.context'
 import { path } from '@/constants'
