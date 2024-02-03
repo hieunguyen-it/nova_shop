@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 
 import { Button, Input } from '@/components'
 import authApi from 'src/api/auth.api'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { ErrorResponse } from '@/types'
 import { Schema, isAxiosUnprocessableEntityError, schema } from '@/utils'
 import { useContext } from 'react'
@@ -14,7 +14,7 @@ import { AppContext } from '@/contexts/app.context'
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
 
-export const Register = () => {
+const Register = () => {
   const { setIsAuthenticated } = useContext(AppContext)
   const navigate = useNavigate()
 
@@ -111,3 +111,5 @@ export const Register = () => {
     </div>
   )
 }
+
+export default Register

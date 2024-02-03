@@ -3,7 +3,7 @@ import { order as orderConstants, path, sortBy } from '@/constants'
 import { QueryConfig } from '@/hooks'
 import { ProductListConfig } from '@/types'
 import classNames from 'classnames'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 
 interface SortProductListProps {

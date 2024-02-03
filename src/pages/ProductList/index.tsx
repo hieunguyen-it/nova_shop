@@ -8,7 +8,7 @@ import { Pagination } from '@/components'
 import { ProductListConfig } from '@/types'
 import categoryApi from '@/api/category.api'
 
-export const ProductList = () => {
+const ProductList = () => {
   const queryConfig = useQueryConfig()
 
   const { data: productsData } = useQuery({
@@ -51,3 +51,5 @@ export const ProductList = () => {
     </div>
   )
 }
+
+export default ProductList

@@ -60,7 +60,7 @@ type FormDataError = Omit<FormData, 'date_of_birth'> & {
 
 const profileSchema = userSchema.pick(['name', 'phone', 'address', 'avatar', 'date_of_birth'])
 
-export const Profile = () => {
+const Profile = () => {
   const { setProfile } = useContext(AppContext)
   const [file, setFile] = useState<File>()
   const { data: profileData, refetch } = useQuery({
@@ -218,3 +218,5 @@ export const Profile = () => {
     </div>
   )
 }
+
+export default Profile

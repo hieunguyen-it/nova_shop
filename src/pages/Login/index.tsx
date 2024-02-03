@@ -12,7 +12,7 @@ import { path } from '@/constants'
 
 type FormData = Pick<Schema, 'email' | 'password'>
 const loginSchema = schema.pick(['email', 'password'])
-export const Login = () => {
+const Login = () => {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
@@ -100,3 +100,5 @@ export const Login = () => {
     </div>
   )
 }
+
+export default Login

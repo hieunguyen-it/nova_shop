@@ -9,7 +9,7 @@ import classNames from 'classnames'
 import { useForm, Controller } from 'react-hook-form'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import { RatingStars } from '../RatingStars'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { QueryConfig } from '@/hooks'
 
 interface AsideFilterProps {

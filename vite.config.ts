@@ -5,11 +5,12 @@ import { checker } from 'vite-plugin-checker'
 import dynamicImport from 'vite-plugin-dynamic-import'
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
-    plugins: [checker({ typescript: true }), dynamicImport(), react(), svgr(), tsconfigPaths()],
+    plugins: [checker({ typescript: true }), dynamicImport(), react(), svgr(), tsconfigPaths(), visualizer()],
     server: {
       port: 3005
     },

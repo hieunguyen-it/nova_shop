@@ -17,7 +17,7 @@ const purchaseTabs = [
   { status: purchasesStatus.cancelled, name: 'Đã hủy' }
 ]
 
-export const HistoryPurchase = () => {
+const HistoryPurchase = () => {
   const queryParams: { status?: string } = useQueryParams()
   const status: number = Number(queryParams.status) || purchasesStatus.all
 
@@ -88,3 +88,5 @@ export const HistoryPurchase = () => {
     </div>
   )
 }
+
+export default HistoryPurchase

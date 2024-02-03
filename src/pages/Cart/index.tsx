@@ -14,7 +14,7 @@ import { Button, QuantityController } from '@/components'
 import { formatCurrency, generateNameId } from '@/utils'
 import { path } from '@/constants'
 
-export const Cart = () => {
+const Cart = () => {
   const { extendedPurchases, setExtendedPurchases } = useContext(AppContext)
   const { data: purchasesInCartData, refetch } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
@@ -323,3 +323,5 @@ export const Cart = () => {
     </div>
   )
 }
+
+export default Cart

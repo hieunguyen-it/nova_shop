@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 type FormData = Pick<UserSchema, 'password' | 'new_password' | 'confirm_password'>
 const passwordSchema = userSchema.pick(['password', 'new_password', 'confirm_password'])
 
-export const ChangePassword = () => {
+const ChangePassword = () => {
   const {
     register,
     formState: { errors },
@@ -114,3 +114,5 @@ export const ChangePassword = () => {
     </div>
   )
 }
+
+export default ChangePassword

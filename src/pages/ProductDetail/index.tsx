@@ -15,7 +15,7 @@ import { path, purchasesStatus } from '@/constants'
 import purchaseApi from '@/api/purchase.api'
 import { toast } from 'react-toastify'
 
-export const ProductDetail = () => {
+const ProductDetail = () => {
   const navigate = useNavigate()
   const { nameId } = useParams()
   const queryClient = useQueryClient()
@@ -275,3 +275,5 @@ export const ProductDetail = () => {
     </div>
   )
 }
+
+export default ProductDetail
