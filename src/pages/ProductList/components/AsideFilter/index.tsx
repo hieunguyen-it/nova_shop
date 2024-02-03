@@ -11,6 +11,7 @@ import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import { RatingStars } from '../RatingStars'
 import omit from 'lodash/omit'
 import { QueryConfig } from '@/hooks'
+import { useTranslation } from 'react-i18next'
 
 interface AsideFilterProps {
   queryConfig: QueryConfig
@@ -28,6 +29,7 @@ type FormData = Pick<Schema, 'price_max' | 'price_min'>
 const priceSchema = schema.pick(['price_max', 'price_min'])
 
 export const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
+  const { t } = useTranslation('home')
   const { category } = queryConfig
   const {
     control,
@@ -72,7 +74,7 @@ export const AsideFilter = ({ queryConfig, categories }: AsideFilterProps) => {
         })}
       >
         <CategoryIcon />
-        Tất cả Danh mục
+        {t('aside filter.all categories')}
       </Link>
       <div className='bg-gray-300 h-[1px] my-4' />
       <ul>

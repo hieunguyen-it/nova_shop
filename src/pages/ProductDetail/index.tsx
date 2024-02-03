@@ -14,8 +14,10 @@ import { Product } from '../ProductList/components/Product'
 import { path, purchasesStatus } from '@/constants'
 import purchaseApi from '@/api/purchase.api'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 const ProductDetail = () => {
+  const { t } = useTranslation(['product'])
   const navigate = useNavigate()
   const { nameId } = useParams()
   const queryClient = useQueryClient()
@@ -219,10 +221,8 @@ const ProductDetail = () => {
                   max={product.quantity}
                 />
                 <div className='ml-6 text-sm text-gray-500'>
-                  {/* {product.quantity} {t('product:available')} */}
-                  {product.quantity}
+                  {product.quantity} {t('product:available')}
                 </div>
-                <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
               </div>
               <div className='mt-8 flex items-center'>
                 <button
