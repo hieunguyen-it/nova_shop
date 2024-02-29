@@ -133,7 +133,7 @@ const ProductDetail = () => {
   return (
     <div className='bg-gray-200 py-6'>
       <Helmet>
-        <title>{product.name} | Shopee Clone</title>
+        <title>{product.name}</title>
         <meta
           name='description'
           content={convert(product.description, {

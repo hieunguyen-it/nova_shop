@@ -30,8 +30,8 @@ const ProductList = () => {
   return (
     <div className='bg-gray-200 py-6'>
       <Helmet>
-        <title>Trang chủ | Shopee Clone</title>
-        <meta name='description' content='Trang chủ dự án Shopee Clone' />
+        <title>Trang chủ </title>
+        <meta name='description' content='Trang chủ dự án e-commerce' />
       </Helmet>
       <div className='container'>
         {productsData && (

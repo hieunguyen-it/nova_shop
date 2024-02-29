@@ -1,4 +1,4 @@
-import { Cart, Search, Shopee } from '@/assets'
+import { Cart, Search } from '@/assets'
 import { Link } from 'react-router-dom'
 import { Popover } from '@/components'
 import { useQuery } from '@tanstack/react-query'
@@ -31,7 +31,9 @@ export const Header = () => {
         <NavHeader />
         <div className='grid grid-cols-12 gap-4 mt-4 items-end'>
           <Link to={path.home} className='col-span-2'>
-            <Shopee />
+            <div>
+              <p className='capitalize text-2xl'>E-Market</p>
+            </div>
           </Link>
           <form className='col-span-9' onSubmit={onSubmitSearch}>
             <div className='flex rounded-sm bg-white p-1'>
