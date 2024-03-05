@@ -1,5 +1,6 @@
-import { Banner } from '@/assets'
-import { Link, useMatch } from 'react-router-dom'
+// import { Banner } from '@/assets'
+// import { Link, useMatch } from 'react-router-dom'
+import { useMatch } from 'react-router-dom'
 
 export const RegisterHeader = () => {
   const registerMatch = useMatch('/register')
@@ -8,9 +9,9 @@ export const RegisterHeader = () => {
     <header className='py-5'>
       <div className='container'>
         <nav className='flex items-end'>
-          <Link to='/'>
+          {/* <Link to='/'>
             <Banner />
-          </Link>
+          </Link> */}
           <div className='ml-5 text-xl lg:text-2xl'>{isRegister ? ' Đăng ký' : ' Đăng nhập'}</div>
         </nav>
       </div>
